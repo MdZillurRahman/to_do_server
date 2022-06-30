@@ -19,7 +19,13 @@ async function run() {
 
         const toDoCollection = client.db('to_do_list').collection('to_do');
        
-
+        app.get('/task', async (req, res) => {
+            const date = req.query.date;
+            const query = {date: date};
+            const cursor = toDoCollection.find(query);
+            const taskList = await cursor.toArray();
+            res.send(taskList);
+        })
 
 
 
